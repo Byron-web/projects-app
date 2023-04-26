@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Cars Website",
+    "description": "This is a dummy website I build to buy and sell cars.",
+    "image": "./images/car.png"
+  },
+  {
+    "title": "Real Estate Website",
+    "description": "This is a dummy website I built for buying and selling houses.",
+    "image": "./images/realtor.png"
+  },
+  {
+    "title": "Netflix Clone",
+    "description": "This is a clone of the Netflix website.",
+    "image": "./images/netflix.png"
+  },
+  {
+    "title": "Travel Website",
+    "description": "This is a website where users can book accomodation to places around the world.",
+    "image": "./images/travel.png"
+  }
+]
