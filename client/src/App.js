@@ -43,10 +43,33 @@ function App() {
     Handles the editing of a card by setting the edit mode state variable to true
     and updating the input fields with the current card's title and description.
   */
-  const handleEdit = (index) => {
-    setEditMode(true);
-    setEditTitle(backendData[index].title);
-    setEditDescription(backendData[index].description);
+  const handleEdit = async (id, newData) => {
+    try {
+      const response = await fetch(`/api/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newData),
+      });
+      console.log(newData);
+      if (response.ok) {
+        const data = await response.json();
+        const updatedUser = data.user;
+        const updatedData = backendData.map((user) => {
+          if (user.id === updatedUser.id) {
+            return updatedUser;
+          } else {
+            return user;
+          }
+        });
+        setBackendData(updatedData);
+      } else {
+        throw new Error("Failed to update user");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   /*
@@ -120,7 +143,10 @@ function App() {
                     <Card.Title>{user.title}</Card.Title>
                     <Card.Text>{user.description}</Card.Text>
                     <div className="d-flex justify-content-between mt-auto">
-                      <Button variant="success" onClick={() => handleEdit(i)}>
+                      <Button
+                        variant="success"
+                        onClick={() => handleEdit(user.id)}
+                      >
                         Edit
                       </Button>
                       <Button

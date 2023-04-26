@@ -45,7 +45,7 @@ app.put("/api/users/:id", (req, res) => {
   const { title, description } = req.body;
 
   // Find the user with the matching ID in the users array
-  const userIndex = users.findIndex((user) => user.id === parseInt(id));
+  const userIndex = users.findIndex((user) => user.id === id);
 
   // If the user exists, update their details
   if (userIndex !== -1) {
