@@ -21,10 +21,22 @@ function App() {
   }, []);
 
   //Handles the deletion of a card by removing it from the state array.
-  const handleDelete = (index) => {
-    const updateData = [...backendData];
-    updateData.splice(index, 1);
-    setBackendData(updateData);
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/users/${id}`, {
+        method: "DELETE",
+      });
+      console.log(response);
+      if (response.ok) {
+        console.log("User deleted successfully");
+        const updatedData = backendData.filter((user) => user.id !== id);
+        setBackendData(updatedData);
+      } else {
+        throw new Error("Failed to delete user");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   /* 
@@ -111,7 +123,10 @@ function App() {
                       <Button variant="success" onClick={() => handleEdit(i)}>
                         Edit
                       </Button>
-                      <Button variant="danger" onClick={() => handleDelete(i)}>
+                      <Button
+                        variant="danger"
+                        onClick={() => handleDelete(user.id)}
+                      >
                         Delete
                       </Button>
                     </div>
